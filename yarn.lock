@@ -2056,12 +2056,10 @@ tar@^4:
     yallist "^3.0.2"
 
 tiny-blog-model@^0.1.6:
-  version "0.1.6"
-  resolved "https://registry.yarnpkg.com/tiny-blog-model/-/tiny-blog-model-0.1.6.tgz#ed05eb4ac0403f0068bc1b435f67d2caa2c5bfe4"
-  integrity sha512-dGuf8nw0erikUSbaKBl2kRjeM4pcbUZq7XcwCRxB6vrG/4gxU6ms//ycPKEf3FBC7UwY3gwAKFdiwJQtZOSUBw==
+  version "0.1.7"
+  resolved "https://registry.yarnpkg.com/tiny-blog-model/-/tiny-blog-model-0.1.7.tgz#beb6b27f217d64b3d696ff9a405c1fdecc7fa523"
+  integrity sha512-oBdjjSGzBmAEbDpBMp72OJH+QHya+Q9tCx8F6XSgMNYNLKmP1vyp6Kywl/31DjEWmvakEbGKEDCK8linhkOkTA==
   dependencies:
-    fluture "^10.3.1"
-    mongodb "^3.1.13"
     ramda "^0.26.1"
 
 to-fast-properties@^2.0.0:
