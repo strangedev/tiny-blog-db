@@ -6,7 +6,7 @@ import * as v1alphaTagView from "./v1alpha/Tag/view";
 
 const v1alpha = {
     model: {
-        BlogEntry: Model.v1alpha.model.BlogEntry
+        BlogEntry: Model.v1alpha.BlogEntry
     },
     store: (host, port) => ({
         getDb: () => getVersion("v1alpha", host, port),

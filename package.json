@@ -1,6 +1,6 @@
 {
   "name": "tiny-blog-db",
-  "version": "0.1.1",
+  "version": "0.1.4",
   "description": "JavaScript database connector for tiny-blog",
   "main": "build/index.js",
   "repository": "git@github.com:strangedev/tiny-blog-db.git",
@@ -18,6 +18,7 @@
     "tiny-blog-model": "^0.1.6"
   },
   "scripts": {
-    "build": "node_modules/.bin/babel . -d build --ignore node_modules"
+    "build": "yarn clean && node_modules/.bin/babel . -d build --ignore node_modules",
+    "clean": "rm -rf build"
   }
 }

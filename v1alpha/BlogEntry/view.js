@@ -24,7 +24,7 @@ function newest(host, port) {
                         )
                 }
             ).map(
-                entries => R.map(e => v1alpha.model.BlogEntry.unMarshal(e), entries)
+                entries => R.map(e => v1alpha.BlogEntry.unMarshal(e), entries)
             )
         );
 }
