@@ -1,9 +1,8 @@
-# tiny-blog-model
+# tiny-blog-db
 
-Data model and database connector for tiny-blog.
+JavaScript database connector for tiny-blog.
 
-Uses a MongoDB as storage backend, although the model classes 
-for each model version can be used on their own without a database connection.
+Uses a MongoDB as storage backend.
 
 Models follow the tiny-blog-api spec: https://github.com/strangedev/tiny-blog-api/tree/master/spec
 
@@ -13,6 +12,7 @@ Models follow the tiny-blog-api spec: https://github.com/strangedev/tiny-blog-ap
  - tiny-blog-api: https://github.com/strangedev/tiny-blog-api
  - tiny-blog-backend: https://github.com/strangedev/tiny-blog-backend
  - tiny-blog-ui: https://github.com/strangedev/tiny-blog-ui
+ - tiny-blog-model: https://github.com/strangedev/tiny-blog-model
 
 ## Usage
 
