@@ -58,4 +58,7 @@ yarn install
 
 # transpile JS to build/
 yarn run build
+
+# run tests
+yarn run test
 ```
