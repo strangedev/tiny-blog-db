@@ -20,40 +20,28 @@ Models follow the tiny-blog-api spec: https://github.com/strangedev/tiny-blog-ap
 
 ### API Structure
 
- - versionName
-    - model
-    - store
-        - getDb
-        - ResourceName
-            - view
-            - mutation
-            
-e.g.
-
- - v1alpha
-    - model
-        - BlogEntry
-    - store
-        - getDb
-        - BlogEntry
-            - view
-                - newest
-                - byTag
-            - mutation 
-                - insert
-                - update
-                - delete
-        - Tag
-            - view
-                - all
+- BlogEntry
+- store(host, port)
+    - getDb
+    - BlogEntry
+        - view
+            - newest
+            - byTag
+        - mutation
+            - insert
+            - remove
+            - update
+    - Tag
+        - view
+            - all
 
 #### Example
 
 ```javascript
-import {v1alpha} from "tiny-blog-model";
-const v1Store = v1alpha.store("localhost", 27017);
+import {Store} from "tiny-blog-db";
+const store = Store("localhost", 27017);
 
-let cancel = v1Store.BlogEntry.view.newest().fork(
+let cancel = store.BlogEntry.view.newest().fork(
     console.err,
     result => {
         // do something with the result...
