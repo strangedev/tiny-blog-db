@@ -9,7 +9,10 @@
   "devDependencies": {
     "@babel/cli": "^7.2.3",
     "@babel/core": "^7.3.4",
-    "@babel/preset-env": "^7.3.4"
+    "@babel/preset-env": "^7.3.4",
+    "babel-jest": "^24.1.0",
+    "codecov": "^3.2.0",
+    "jest": "^24.1.0"
   },
   "dependencies": {
     "fluture": "^10.3.1",
@@ -19,6 +22,15 @@
   },
   "scripts": {
     "build": "yarn clean && node_modules/.bin/babel . -d build --ignore node_modules",
-    "clean": "rm -rf build"
+    "clean": "rm -rf build",
+    "test": "jest",
+    "codecov": "jest && codecov"
+  },
+  "jest": {
+    "collectCoverage": true,
+    "testPathIgnorePatterns": [
+      "/build/",
+      "/nodule_modules"
+    ]
   }
 }
