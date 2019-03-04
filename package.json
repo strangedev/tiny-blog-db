@@ -18,10 +18,11 @@
     "fluture": "^10.3.1",
     "mongodb": "^3.1.13",
     "ramda": "^0.26.1",
+    "semver": "^5.6.0",
     "tiny-blog-model": "^0.1.6"
   },
   "scripts": {
-    "build": "yarn clean && node_modules/.bin/babel . -d build --ignore node_modules",
+    "build": "yarn clean && node_modules/.bin/babel . -d build --ignore node_modules --ignore '*/**/*.test.js' --ignore '__mock*' && cp package.json build/",
     "clean": "rm -rf build",
     "test": "jest",
     "codecov": "jest && codecov"

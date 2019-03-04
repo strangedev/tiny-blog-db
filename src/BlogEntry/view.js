@@ -1,15 +1,11 @@
 import * as Future from "fluture";
-import {getVersion} from "../../connector/db";
 import * as R from "ramda";
-import {v1alpha} from "tiny-blog-model";
+import {BlogEntry} from "tiny-blog-model";
 
-const version = "v1alpha";
-const getDb = (host, port) => getVersion(version, host, port);
 
-function newest(host, port) {
+function newest(getDb) {
     return (offset, limit) =>
-        getDb(host, port)
-            .chain(db => Future.Future(
+        getDb().chain(db => Future.Future(
                 (reject, resolve) =>  {
                     db.collection("BlogEntry")
                         .find()
@@ -24,12 +20,12 @@ function newest(host, port) {
                         )
                 }
             ).map(
-                entries => R.map(e => v1alpha.BlogEntry.unMarshal(e), entries)
+                entries => R.map(e => BlogEntry.unMarshal(e), entries)
             )
         );
 }
 
-function byTag(host, port){
+function byTag(dbFactory){
     return (tags) => {
         return Future.reject("Not implemented");
     }
