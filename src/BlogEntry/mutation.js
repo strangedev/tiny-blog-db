@@ -2,25 +2,20 @@ import * as Future from "fluture";
 
 function insert(getDb) {
     return blogEntry =>
-       getDb().chain(
-           db => Future.tryP(
-               () => db.collection("BlogEntry").insertOne(blogEntry.marshal(true))
-           )
-       ).map(
-           result => result.insertedId
+       getDb()
+           .chain(
+               ({db, closeWith}) => Future.tryP(
+                   () => db.collection("BlogEntry").insertOne(blogEntry.marshal(true))
+               ).map(result => ({id: result.insertedId, db, closeWith}))
        ).chain(
-           insertedId => {
+           ({id, db, closeWith}) => {
                let bodies = [];
                for (let tag of blogEntry.tags) {
-                   bodies.push({BlogEntryId: insertedId, Tag: tag});
+                   bodies.push({BlogEntryId: id, Tag: tag});
                }
-               return getDb().chain(
-                   db => Future.tryP(() =>
-                           db.collection("Tag_BlogEntry").insertMany(bodies)
-                   )
-               ).map(
-                   () => insertedId
-               );
+               return Future.tryP(
+                   () => db.collection("Tag_BlogEntry").insertMany(bodies)
+               ).chain(() => closeWith(id))
            }
            );
 }
@@ -29,26 +24,16 @@ function remove(getDb) {
     return blogEntry =>
         getDb()
             .chain(
-                db => Future.tryP(
+                ({db, closeWith}) => Future.tryP(
                     () => db.collection("Tag_BlogEntry")
                         .deleteMany({BlogEntryId: blogEntry.id})
-                    )
+                ).map(() => ({db, closeWith}))
             ).chain(
-                () => getDb()
-                    .chain(
-                        db => Future.tryP(() =>
-                            db.collection("BlogEntry")
+                ({db, closeWith}) => Future.tryP(
+                    () => db.collection("BlogEntry")
                                 .deleteOne({_id: blogEntry.id})
-                        )
-                    )
-            ).chain(result => {
-                if (result.deletedCount === 1) {
-                    return Future.of(result.deletedCount);
-                } else {
-                    return Future.reject("Nothing deleted.")
-                }
-            }
-        );
+                        ).chain(result => closeWith(result.deletedCount))
+            );
 }
 
 export {
