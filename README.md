@@ -2,7 +2,7 @@
 
 JavaScript database connector for tiny-blog.
 
-[![codecov](https://codecov.io/gh/strangedev/tiny-blog-db/branch/master/graph/badge.svg)](https://codecov.io/gh/strangedev/tiny-blog-db)
+![npm](https://img.shields.io/npm/v/tiny-blog-db.svg) [![codecov](https://codecov.io/gh/strangedev/tiny-blog-db/branch/master/graph/badge.svg)](https://codecov.io/gh/strangedev/tiny-blog-db)
 
 Uses a MongoDB as storage backend.
 
