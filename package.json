@@ -1,6 +1,6 @@
 {
   "name": "tiny-blog-db",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "JavaScript database connector for tiny-blog",
   "main": "build/index.js",
   "repository": "git@github.com:strangedev/tiny-blog-db.git",
