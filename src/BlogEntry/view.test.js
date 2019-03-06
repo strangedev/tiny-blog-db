@@ -90,11 +90,11 @@ test("view.byTag", () => {
             return insertFn(anotherBlogEntry).chain(
                 anotherInsertedId => {
                     expect(insertedId).toBeInstanceOf(ObjectId);
-                    return byTagFn(["tag", "blumentopferde"])
+                    return byTagFn(["tag", "blumentopferde"], 0, 50)
                         .chain(
                             sortedBlogEntries => {
                                 expect(sortedBlogEntries).toHaveLength(2);
-                                expect(sortedBlogEntries[0]).toEqual(anotherInsertedId.toString());
+                                expect(sortedBlogEntries[0].id).toEqual(anotherInsertedId);
                                 return removeFn({id: anotherInsertedId});
                             }
                         );
