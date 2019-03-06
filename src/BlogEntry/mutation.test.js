@@ -6,6 +6,7 @@ import * as R from "ramda";
 import * as MongoDb from "mongodb";
 import {ObjectId} from "mongodb";
 import {newest} from "./view";
+import {all} from "../Tag/view";
 
 beforeAll(async () => {
     global.getDb = () => Future.Future((reject, resolve) => {
@@ -68,6 +69,7 @@ test("mutation.remove", async () => {
     let insertFn = insert(global.getDb);
     let removeFn = remove(global.getDb);
     let newestFn = newest(global.getDb);
+    let tagFn = all(global.getDb);
     let blogEntry = new BlogEntry(
         undefined,
         "Title",
@@ -85,6 +87,11 @@ test("mutation.remove", async () => {
         removedCount => {
             expect(removedCount).toBe(1);
             return newestFn(0, 50);
+        }
+    ).chain(
+        newest => {
+            expect(newest).toHaveLength(0);
+            return tagFn();
         }
     );
     return expect(future.promise()).resolves.toHaveLength(0);
