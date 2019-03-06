@@ -5,7 +5,7 @@ import * as Future from "fluture";
 import * as R from "ramda";
 import * as MongoDb from "mongodb";
 import {ObjectId} from "mongodb";
-import {newest} from "./view";
+import {byTag, newest} from "./view";
 
 beforeAll(async () => {
     global.getDb = () => Future.Future((reject, resolve) => {
@@ -62,4 +62,47 @@ test("view.newest", () => {
         }
     );
     return expect(future.promise()).resolves.toHaveLength(0);
+});
+
+test("view.byTag", () => {
+    let insertFn = insert(global.getDb);
+    let byTagFn = byTag(global.getDb);
+    let removeFn = remove(global.getDb);
+    let aBlogEntry = new BlogEntry(
+        undefined,
+        "Title",
+        "Content",
+        "Author",
+        Date.now(),
+        ["tag"]
+    );
+    let anotherBlogEntry = new BlogEntry(
+        undefined,
+        "Title",
+        "Content",
+        "Author",
+        Date.now(),
+        ["tag", "blumentopferde"]
+    );
+    let future = insertFn(aBlogEntry).chain(
+        insertedId => {
+            expect(insertedId).toBeInstanceOf(ObjectId);
+            return insertFn(anotherBlogEntry).chain(
+                anotherInsertedId => {
+                    expect(insertedId).toBeInstanceOf(ObjectId);
+                    return byTagFn(["tag", "blumentopferde"])
+                        .chain(
+                            sortedBlogEntries => {
+                                expect(sortedBlogEntries).toHaveLength(2);
+                                expect(sortedBlogEntries[0]).toEqual(anotherInsertedId.toString());
+                                return removeFn({id: anotherInsertedId});
+                            }
+                        );
+                }
+            ).chain(
+                () => removeFn({id: insertedId})
+            );
+        }
+    );
+    return expect(future.promise()).resolves.toEqual(1);
 });
