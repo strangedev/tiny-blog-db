@@ -100,7 +100,10 @@ test("view.byTag", () => {
                         );
                 }
             ).chain(
-                () => removeFn({id: insertedId})
+                removedCount => {
+                    expect(removedCount).toEqual(1);
+                    return removeFn({id: insertedId})
+                }
             );
         }
     );
