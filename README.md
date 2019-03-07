@@ -41,7 +41,9 @@ Models follow the tiny-blog-api spec: https://github.com/strangedev/tiny-blog-ap
 import {Store} from "tiny-blog-db";
 const store = Store("localhost", 27017);
 
-let cancel = store.BlogEntry.view.newest().fork(
+let offset = 0;
+let limit = 50;
+let cancel = store.BlogEntry.view.newest(offset, limit).fork(
     console.err,
     result => {
         // do something with the result...
