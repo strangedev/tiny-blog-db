@@ -76,7 +76,7 @@ test("mutation.remove", async () => {
         "Content",
         "Author",
         Date.now(),
-        ["tag"]
+        ["tag", "blumentopferde", "giraffentorte"]
     );
     let future = insertFn(blogEntry).chain(
         insertedId => {
